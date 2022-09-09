@@ -1,0 +1,264 @@
+body {
+  background-color: #202024;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  color: white;
+}
+
+#members {
+  height: 88vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#controls {
+  width: 100vw;
+  height: 12vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#left {
+  margin-left: 1rem;
+}
+
+#end-call {
+  width: 2rem;
+  border-radius: 1.2rem;
+}
+
+#right {
+  margin-right: 1.2rem;
+}
+
+#controls div {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#pinned {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+#pinned .member {
+  width: 64.5vw;
+  height: 84vh;
+  background: none;
+}
+
+#unpinned .member {
+  width: 10rem;
+  min-height: 8rem;
+}
+
+#unpinned {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapper {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+#mute-btn {
+  /* position: absolute; */
+}
+
+.member {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 8px;
+  flex-grow: 0.15;
+}
+
+.mic {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.name {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 5px;
+}
+
+.btn {
+  border-radius: 50%;
+  padding: 0.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: white;
+}
+
+.hover-darken {
+  -webkit-filter: brightness(100%);
+}
+
+.hover-darken:hover {
+  -webkit-filter: brightness(80%);
+  -webkit-transition: all 0.12s ease-in-out;
+  -moz-transition: all 0.12s ease-in-out;
+  -o-transition: all 0.12s ease-in-out;
+  -ms-transition: all 0.12s ease-in-out;
+}
+
+.bg-red {
+  background-color: #eb3e39;
+}
+
+.bg-grey {
+  background-color: #3d3f42;
+}
+
+.operations {
+  padding: 0.5rem;
+  border-radius: 1.2rem;
+  background-color: #d3d3d3;
+  display: flex;
+  gap: 1.1rem;
+  opacity: 0;
+  color: black;
+}
+
+.operations ion-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.member:hover .operations {
+  opacity: 0.5;
+  transition: all 0.18s ease-in-out;
+}
+
+.operations:hover {
+  opacity: 0.75 !important;
+  transition: all 0.18s ease-in-out;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.avatar {
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hint-trigger {
+  position: relative;
+  display: block;
+}
+
+.hint-trigger .hint {
+  opacity: 0;
+  width: fit-content;
+  display: block;
+  white-space: nowrap;
+  background-color: rgba(75, 75, 75, 0.8);
+  color: rgb(238, 238, 238);
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: small;
+  bottom: 120%;
+  left: calc(50% - width/2);
+  position: absolute;
+  z-index: 1;
+}
+
+.hint-trigger:hover .hint {
+  opacity: 0.98;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Avatar Photos */
+
+#pinned .avatar {
+  background-image: url("https://static.popdaily.com.tw/wp-content/uploads/2021/04/agxmiqsjcy044sw0ko88sokssqrsj9t.jpg");
+  width: 8.5rem;
+  height: 8.5rem;
+}
+#wrapper .avatar {
+  width: 4rem;
+  height: 4rem;
+}
+#wrapper .member:nth-child(1) .avatar {
+  background-image: url("https://cdn.vox-cdn.com/thumbor/1kKyzwmocR6pu9ijSIl_l1XP0PY=/0x0:1280x720/1200x675/filters:focal(470x259:674x463)/cdn.vox-cdn.com/uploads/chorus_image/image/58089103/r_m_sauce.0.jpg");
+}
+#wrapper .member:nth-child(2) .avatar {
+  background-image: url("https://c.tenor.com/ZxmS8Wd0C-4AAAAC/rick-and-morty-morty.gif");
+}
+#wrapper .member:nth-child(3) .avatar {
+  background-image: url("https://www.looper.com/img/gallery/summers-wolverine-claws-from-rick-and-morty-season-6-episode-1-actually-belong-to-another-marvel-antihero/l-intro-1662314109.jpg");
+}
+#wrapper .member:nth-child(4) .avatar {
+  background-image: url("https://www.looper.com/img/gallery/the-wild-rick-and-morty-theory-that-explains-everything-about-jerry/l-intro-1638241022.jpg");
+}
+#wrapper .member:nth-child(5) .avatar {
+  background-image: url("https://vignette.wikia.nocookie.net/rickandmorty/images/5/52/S2e4_mr_poopybutthole.png/revision/latest?cb=20160921090818");
+}
+
+/* RWD Responsive Web Design */
+@media (max-width: 800px) {
+  #pinned {
+    height: auto;
+    width: 100%;
+  }
+  #pinned .member {
+    width: 90%;
+    height: auto;
+  }
+  /* #pined .avatar {
+        width: 4rem;
+        height: 4rem;
+    } */
+  #members {
+    flex-direction: column;
+  }
+  #controls {
+    justify-content: center;
+  }
+  #left {
+    display: none !important;
+  }
+  #right {
+    display: none !important;
+  }
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Meet</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="../static/js/index.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./logo.png">
+    <script src="jquery-3.6.0.min.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="members">
+        <div id="pinned">
+            <div class="member">
+                <div class="mic">
+                    <ion-icon name="mic-off-outline" class="btn bg-grey"></ion-icon>
+                </div>
+                <div class="avatar">
+                    <div class="operations">
+                        <ion-icon name="pin-outline" class="pointer"></ion-icon>
+                        <ion-icon name="apps-outline" class="pointer"></ion-icon>
+                        <ion-icon name="resize-outline" class="pointer"></ion-icon>
+                    </div>
+                </div>
+                <div class="name">
+                    <ion-icon name="pin-outline"></ion-icon> You
+                </div>  
+            </div>
+        </div>
+        <div id="unpinned">
+            <div id="wrapper">
+            <div class="member">
+                <div class="mic">
+                    <ion-icon name="mic-off-outline" class="btn bg-grey"></ion-icon>
+                </div>
+                <div class="avatar">
+                    <div class="operations">
+                        <ion-icon name="pin-outline" class="pointer"></ion-icon>
+                        <ion-icon name="apps-outline" class="pointer"></ion-icon>
+                        <ion-icon name="resize-outline" class="pointer"></ion-icon>
+                    </div>
+                </div>
+                <div class="name">
+                    Rick
+                </div>  
+            </div>
+            <div class="member">
+                <div class="mic">
+                    <ion-icon name="mic-off-outline" class="btn bg-grey"></ion-icon>
+                </div>
+                <div class="avatar">
+                    <div class="operations">
+                        <ion-icon name="pin-outline" class="pointer"></ion-icon>
+                        <ion-icon name="apps-outline" class="pointer"></ion-icon>
+                        <ion-icon name="resize-outline" class="pointer"></ion-icon>
+                    </div>
+                </div>
+                <div class="name">
+                    Morty
+                </div>  
+            </div>
+            <div class="member">
+                <div class="mic">
+                    <ion-icon name="mic-off-outline" class="btn bg-grey"></ion-icon>
+                </div>
+                <div class="avatar">
+                    <div class="operations">
+                        <ion-icon name="pin-outline" class="pointer"></ion-icon>
+                        <ion-icon name="apps-outline" class="pointer"></ion-icon>
+                        <ion-icon name="resize-outline" class="pointer"></ion-icon>
+                    </div>
+                </div>
+                <div class="name">
+                    Summer
+                </div>  
+            </div>
+            <div class="member">
+                <div class="mic">
+                    <ion-icon name="mic-off-outline" class="btn bg-grey"></ion-icon>
+                </div>
+                <div class="avatar">
+                    <div class="operations">
+                        <ion-icon name="pin-outline" class="pointer"></ion-icon>
+                        <ion-icon name="apps-outline" class="pointer"></ion-icon>
+                        <ion-icon name="resize-outline" class="pointer"></ion-icon>
+                    </div>
+                </div>
+                <div class="name">
+                    Dad
+                </div>  
+            </div>
+            <div class="member">
+                <div class="mic">
+                    <ion-icon name="mic-off-outline" class="btn bg-grey"></ion-icon>
+                </div>
+                <div class="avatar">
+                    <div class="operations">
+                        <ion-icon name="pin-outline" class="pointer"></ion-icon>
+                        <ion-icon name="apps-outline" class="pointer"></ion-icon>
+                        <ion-icon name="resize-outline" class="pointer"></ion-icon>
+                    </div>
+                </div>
+                <div class="name">
+                    Mr. Poopybutthole
+                </div>  
+            </div>
+            </div>
+        </div>
+    </div>
+    <div id="controls">
+        <div id="left">
+            凌晨 2:14 | prt-gxfy-gfx
+        </div>
+        <div id="middle">
+            <div class="hint-trigger" type="checkbox">
+                <span class="hint">
+                    開啟麥克風
+                </span>
+                <ion-icon name="mic-off-outline" class="btn bg-red pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    開啟攝像頭
+                </span>
+                <ion-icon name="videocam-off-outline" class="btn bg-red pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    舉手
+                </span>
+                <ion-icon name="hand-left-outline" class="btn bg-grey pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    分享螢幕畫面
+                </span>
+                <ion-icon name="desktop-outline" class="btn bg-grey pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    更多選項
+                </span>
+                <ion-icon name="ellipsis-vertical-outline" class="btn bg-grey pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    結束通話
+                </span>
+                <ion-icon id="end-call" name="call-outline" class="btn bg-red pointer hover-darken"></ion-icon>
+            </div>
+            
+        </div>
+        <div id="right">
+            <div class="hint-trigger">
+                <span class="hint">
+                    會議詳細資料
+                </span>
+                <ion-icon name="information-circle-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    顯示參與者
+                </span>
+                <ion-icon name="people-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    即時通訊
+                </span>
+                <ion-icon name="chatbox-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    活動
+                </span>
+                <ion-icon name="color-palette-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    管理介面
+                </span>
+                <ion-icon name="lock-closed-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
