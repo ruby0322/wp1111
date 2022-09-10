@@ -92,7 +92,7 @@ body {
   height: 2.2rem;
   background-size: contain;
   background-color: #eb3e39;
-  background-image: url('./mic-off-outline.png');
+  background-image: url('https://media.discordapp.net/attachments/893439505988743178/1018071048148746241/mic-off-outline.png');
   background-size: 65%;
   background-repeat: no-repeat;
   background-position: center;
@@ -101,7 +101,7 @@ body {
 
 #mute-btn:checked {
   background-color: #3d3f42;
-  background-image: url('./mic-outline.png');
+  background-image: url('https://media.discordapp.net/attachments/893439505988743178/1018071034542428170/mic-outline.png');
 }
 
 #mute-btn ~ #mic-on {
