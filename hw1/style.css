@@ -85,7 +85,37 @@ body {
 }
 
 #mute-btn {
-  /* position: absolute; */
+  appearance: none;
+  display: block;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  background-size: contain;
+  background-color: #eb3e39;
+  background-image: url('./mic-off-outline.png');
+  background-size: 65%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+#mute-btn:checked {
+  background-color: #3d3f42;
+  background-image: url('./mic-outline.png');
+}
+
+#mute-btn ~ #mic-on {
+  visibility: visible;
+}
+#mute-btn ~ #mic-off {
+  visibility: hidden;
+}
+
+#mute-btn:checked ~ #mic-on {
+  visibility: hidden;
+}
+#mute-btn:checked ~ #mic-off {
+  visibility: visible;
 }
 
 .member {
@@ -183,7 +213,9 @@ body {
 
 .hint-trigger {
   position: relative;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hint-trigger .hint {
