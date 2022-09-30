@@ -1,0 +1,387 @@
+body {
+  background-color: #202024;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  color: white;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* # {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+
+#loading-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #202024;
+  color: white;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+  gap: 2rem;
+}
+
+#emoji {
+  font-size: 5rem;
+}
+
+#user-0 .kick {
+  display: none;
+}
+
+#users {
+  height: 88%;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#controls {
+  width: 100vw;
+  height: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+#left {
+  margin-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#time {
+  text-align: center;
+  width: fit-content;
+}
+
+#end-call {
+  width: 2rem;
+  border-radius: 1.2rem;
+}
+
+#right {
+  margin-right: 1.2rem;
+}
+
+#controls div {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.kick {
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.kick:hover {
+  color: red;
+}
+
+.user:hover .kick {
+  opacity: 1;
+}
+
+#pinned .user {
+  margin: 10px;
+  height: 98%;
+  width: 98%;
+  background: none;
+}
+
+#unpinned .user {
+  width: 16rem !important;
+  min-height: 13rem;
+}
+
+#pinned {
+  max-width: 100vw;
+  height: 100%;
+  width: 100%;
+  min-width: 50vw;
+  display: flex;
+  justify-content: safe center;
+  align-items: safe center;
+  padding-top: 1rem;
+  z-index: 1;
+}
+
+#wrapper {
+  margin: auto;
+  min-width: 30vw;
+  height: fit-content;
+  width: auto;
+  max-height: 100%;
+  overflow: auto;
+}
+
+#unpinned {
+  display: flex;
+  height: 100%;
+  height: fit-content;
+
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  /* overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;  */
+}
+
+#unpinned::-webkit-scrollbar{
+  display: none;
+}
+
+#mute-btn {
+  appearance: none;
+  display: block;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  background-size: contain;
+  background-color: #eb3e39;
+  background-image: url('https://media.discordapp.net/attachments/893439505988743178/1018071048148746241/mic-off-outline.png');
+  background-size: 65%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+#mute-btn:checked {
+  background-color: #3d3f42;
+  background-image: url('https://media.discordapp.net/attachments/893439505988743178/1018071034542428170/mic-outline.png');
+}
+
+#mute-btn ~ #mic-on {
+  visibility: visible;
+}
+#mute-btn ~ #mic-off {
+  visibility: hidden;
+}
+
+#mute-btn:checked ~ #mic-on {
+  visibility: hidden;
+}
+#mute-btn:checked ~ #mic-off {
+  visibility: visible;
+}
+
+.user {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 4px;
+  padding-top: 0;
+  flex-grow: 0.12;
+  z-index: 1;
+  /* transition: all 0. 1s ease-in-out; */
+}
+
+#user-0 .mic {
+    justify-content: flex-end;
+}
+
+.mic {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding-left: 10px;
+  gap: 5px;
+}
+
+.btn {
+  border-radius: 50%;
+  padding: 0.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: white;
+}
+
+.hover-darken {
+  -webkit-filter: brightness(100%);
+}
+
+.hover-darken:hover {
+  -webkit-filter: brightness(80%);
+  -webkit-transition: all 0.12s ease-in-out;
+  -moz-transition: all 0.12s ease-in-out;
+  -o-transition: all 0.12s ease-in-out;
+  -ms-transition: all 0.12s ease-in-out;
+}
+
+.bg-red {
+  background-color: #eb3e39;
+}
+
+.bg-grey {
+  background-color: #3d3f42;
+}
+
+.operations {
+  padding: 0.5rem;
+  border-radius: 1.2rem;
+  background-color: #d3d3d3;
+  display: flex;
+  gap: 1.1rem;
+  opacity: 0;
+  color: black;
+}
+
+.operations ion-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.user:hover .operations {
+  opacity: 0.5;
+  transition: all 0.18s ease-in-out;
+}
+
+.operations:hover {
+  opacity: 0.75 !important;
+  transition: all 0.18s ease-in-out;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.avatar {
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hint-trigger {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hint-trigger .hint {
+  opacity: 0;
+  width: fit-content;
+  display: block;
+  white-space: nowrap;
+  background-color: rgba(75, 75, 75, 0.9);
+  color: rgb(238, 238, 238);
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: small;
+  bottom: 120%;
+  left: calc(50% - width/2);
+  position: absolute;
+  z-index: 2;
+}
+
+.hint-trigger:hover .hint {
+  opacity: 0.98;
+  transition: all 0.2s ease-in-out;
+}
+
+#user-icon {
+  background-color: #3d3f42;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  left: 23px;
+  top: -5px;
+  text-align: center;  
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-cnt {
+  font-weight: 600;
+}
+
+/* Avatar Photos */
+
+#pinned .avatar {
+  width: 10rem;
+  height: 10rem;
+}
+#unpinned .avatar {
+  width: 6rem;
+  height: 6rem;
+}
+
+/* RWD Responsive Web Design */
+@media (max-width: 800px) {
+  #unpinned .user {
+    width: 8rem !important;
+    min-height: 8rem !important;
+  }
+  #pinned .avatar {
+    width: 8.5rem;
+    height: 8.5rem;
+  }
+  #unpinned .avatar {
+    width: 4rem;
+    height: 4rem;
+  }
+  #pinned {
+    height: 45vh;
+  }
+  #users {
+    flex-direction: column;
+  }
+  #controls {
+    justify-content: center;
+  }
+  .mobile-hidden {
+    display: none !important;
+  }
+}

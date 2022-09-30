@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Meet</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="https://media.discordapp.net/attachments/893439505988743178/1018071277690429530/logo.png">
+    <script src="./main.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loading-page">
+        <span id="emoji">
+            ⏳
+        </span>
+        正在加入貓貓會議
+        <br>
+        記得讀 README.md ㄛヾ(●゜▽゜●)♡
+    </div>
+    <div id="users">
+        <div id="pinned"></div>
+        <div id="wrapper">
+            <div id="unpinned">
+            </div>
+        </div>
+    </div>
+    <div id="controls">
+        <div id="left">
+            <div class="mobile-hidden center">
+                <p id="time"></p>
+                <div class="center">|</div>
+                <p>貓貓會議室 Σ>―(〃°ω°〃)♡→</p>
+            </div>
+        </div>
+        <div id="middle">
+            <div id="mute-container" class="hint-trigger pointer hover-darken">
+                <input id="mute-btn" type="checkbox"></input>
+                <span id="mic-on" class="hint">
+                    開啟麥克風
+                </span>
+                <span id="mic-off" class="hint">
+                    關閉麥克風
+                </span>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    沒有用的按鈕 ◝(　ﾟ∀ ﾟ )◟
+                </span>
+                <ion-icon name="videocam-off-outline" class="btn bg-red pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    沒有用的按鈕 ◝(　ﾟ∀ ﾟ )◟
+                </span>
+                <ion-icon name="hand-left-outline" class="btn bg-grey pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    沒有用的按鈕 ◝(　ﾟ∀ ﾟ )◟
+                </span>
+                <ion-icon name="desktop-outline" class="btn bg-grey pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    沒有用的按鈕 ◝(　ﾟ∀ ﾟ )◟
+                </span>
+                <ion-icon name="ellipsis-vertical-outline" class="btn bg-grey pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger" onclick="addUser(new User('', '', false));">
+                <span class="hint">
+                    新增成員
+                </span>
+                <ion-icon name="person-add-outline" class="btn bg-grey pointer hover-darken"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    沒有用的按鈕 ◝(　ﾟ∀ ﾟ )◟
+                </span>
+                <ion-icon id="end-call" name="call-outline" class="btn bg-red pointer hover-darken"></ion-icon>
+            </div>
+            
+        </div>
+        <div id="right" class="mobile-hidden">
+            <div class="hint-trigger">
+                <span class="hint">
+                    會議詳細資料
+                </span>
+                <ion-icon name="information-circle-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span id="user-icon">
+                    <p id="user-cnt"></p>
+                </span>
+                <span class="hint">
+                    顯示參與者
+                </span>
+                <ion-icon name="people-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    即時通訊
+                </span>
+                <ion-icon name="chatbox-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    活動
+                </span>
+                <ion-icon name="color-palette-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+            <div class="hint-trigger">
+                <span class="hint">
+                    管理介面
+                </span>
+                <ion-icon name="lock-closed-outline" class="btn hover-darken pointer"></ion-icon>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
