@@ -13,8 +13,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
 </head>
 <body>
+    <div id="overlay"></div>
+    <div class="modal" id="readme-modal">
+        <div class="modal-header">
+            <div class="title">README.md</div>
+            <button data-close-button class="close-button">⚔️</button>
+        </div>
+        <div class="modal-body">
+            <zero-md>
+                <script type="text/markdown">
+                    作業二基本要求及進階要求全數完成
+
+                    以下幾點煩請審閱者注意：
+                    - 新增成員按鈕在下方功能列右二，有功能性
+                    - 踢除成員按鈕要在 hover 使用者時才會出現
+                    - 未釘選成員過多時可以上下滑動，並已解決常見 "cannot scroll to top" 問題
+                    - 釘選與未釘選成員排列會隨裝置寬度及人數應變
+
+                    其他亮點：
+                    - 進入會議讀取畫面，有會旋轉ㄉ漏斗！
+                    - 隨機貓貓頭貼₍₍◝(･'ω'･)◟⁾⁾
+                    - 頭貼讀取畫面
+                    - 隨機名字
+                    - 會議最大人數 30 人
+                    - 右下角顯示成員按鈕右上方顯示目前人數，文字顏色依人數多寡改變
+                    - 點擊「會議詳細資料」按鈕瀏覽 README.md
+                    - 點擊「會議詳細資料」按鈕所有成員名字
+                </script>
+            </zero-md>
+        </div>
+    </div>
+    <div class="modal" id="users-modal">
+        <div class="modal-header">
+            <div class="title">會議中ㄉ貓貓</div>
+            <button data-close-button class="close-button">⚔️</button>
+        </div>
+        <div class="modal-body" id="user-list">
+        </div>
+    </div>
     <div id="loading-page">
         <span id="emoji">
             ⏳
@@ -87,13 +126,13 @@
             
         </div>
         <div id="right" class="mobile-hidden">
-            <div class="hint-trigger">
+            <div class="hint-trigger" data-modal-target="#readme-modal">
                 <span class="hint">
                     會議詳細資料
                 </span>
                 <ion-icon name="information-circle-outline" class="btn hover-darken pointer"></ion-icon>
             </div>
-            <div class="hint-trigger">
+            <div class="hint-trigger"  data-modal-target="#users-modal">
                 <span id="user-icon">
                     <p id="user-cnt"></p>
                 </span>
