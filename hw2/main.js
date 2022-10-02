@@ -33,19 +33,15 @@ const fetchCatImage = async () => {
 
 class User {
     constructor(name, imgUrl) {
-        this.alive = true;
         this.id = idCnt++;
         this.pinned = false;
         if (name !== '') this.name = name;
         else this.name = '正在辨識貓貓...';
         if (imgUrl !== '') this.imgUrl = imgUrl;
         else {
-            // this.imgUrl = 'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw340';
             this.imgUrl = 'https://media1.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif';
             fetchCatImage()
-                // .then(url => console.log(url));
                 .then(url => { this.imgUrl = url; this.name = choose(names); renderUsers(); });
-            // this.imgUrl = `https://picsum.photos/200/300?random=${this.id}`;
         }
         this.html = () => `
         <div class="user" id="user-${this.id}">
@@ -117,7 +113,7 @@ const renderUsers = () => {
     unpinned.innerHTML = '';
     userList.innerHTML = '你';
     for (const user of users) {
-        if (user.alive) {
+        if (user) {
             if (user.name !== 'You')
                 userList.innerHTML += `, ${user.name} 貓貓`;
             if (user.id != pinnedUserId)
@@ -130,6 +126,7 @@ const addUser = user => {
     if (userCnt >= 30) {
         alert('貓貓們覺得擠( ˘•ω•˘ )，不要再找新的貓貓來了！');
     } else {
+        if (!user) user = new User('', '');
         ++userCnt;
         users.push(user);
         renderUsers();
@@ -137,15 +134,15 @@ const addUser = user => {
 };
 
 const removeUser = userId => {
-    --userCnt;
     if (users[userId]) {
-        users[userId].alive = false;
         if (users[userId].pinned) {
             users[userId].pinned = false;
             pinnedUserId = -1;
         }
+        users[userId] = undefined;
+        --userCnt;
+        renderUsers();
     }
-    renderUsers();
 };
 
 const togglePinUser = userId => {
@@ -225,11 +222,12 @@ const main = () => {
     togglePinUser(0);
     const cnt = Math.floor(Math.random() * 15);
     for (let i = 0; i < cnt; ++i) addUser(new User('', ''));
-    setTimeout(() => {
-        loadingPage.style.display = 'none';
-    }, 2000);
     setInterval(rotateEmoji, 10);
     setInterval(timer, 1000);
+    setTimeout(() => {
+        loadingPage.style.display = 'none';
+        clearInterval(rotateEmoji);
+    }, 2000);
 };
 
 document.addEventListener('DOMContentLoaded', main);
