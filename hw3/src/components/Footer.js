@@ -26,15 +26,15 @@ const Footer = props => {
           Completed
         </button>
       </ul>
-      <div className='todo-app__clean'>
-        {
-          props.items.length - cnt > 0 ?
-          <button onClick={clearCompleted}>
-            Clear Completed
-          </button>
-          : <></>
-        }
-      </div>
+        <div className='todo-app__clean'>
+          {
+            props.items.length - cnt > 0 ?
+            <button onClick={clearCompleted}>
+              Clear Completed
+            </button>
+            : <></>
+          }
+        </div>
       </footer>
       : <></>
   );
