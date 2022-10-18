@@ -39,7 +39,22 @@ const useWordle = (solution) => {
         
         // add the formatted guess generated into guesses.
         let newGuesses = [...guesses];
-        const newGuess = curGuess.split('').map((ch, idx) => ({ char: ch, color: ch === solution[idx] ? 'green' : (solution.includes(ch) ? 'yellow' : 'grey') }));
+        let sol = solution.split('');
+        curGuess.split('').map((ch, idx) => {
+            if (ch === solution[idx]) {
+                sol.splice(sol.indexOf(ch), 1);
+            }
+            return undefined;
+        });
+        const newGuess = curGuess.split('').map((ch, idx) => {
+            if (ch === solution[idx])
+                return {char: ch, color: 'green'}
+            if (sol.indexOf(ch) > -1) {
+                sol.splice(sol.indexOf(ch), 1);
+                return {char: ch, color: 'yellow'}
+            }
+            return {char: ch, color: 'grey'}
+        });
         newGuesses[turn] = newGuess;
         setGuesses(newGuesses);
         setTurn(turn + 1);
@@ -50,7 +65,12 @@ const useWordle = (solution) => {
         
         // 5-2) usedChars update
         const newUsedChars = { ...usedChars };
-        newGuess.map(d => (newUsedChars[d.char] = (newUsedChars[d.char] !== 'green' ? d.color : newUsedChars[d.char])));
+        newGuess.map(d => {
+            if (d.color === 'grey') return undefined;
+            if (d.color === 'green') newUsedChars[d.char] = 'green';
+            if (d.color === 'yellow' && newUsedChars[d.char] !== 'green') newUsedChars[d.char] = 'yellow';
+            return undefined;
+        });
         setUsedChars(newUsedChars);
         setCurGuess('');
     }

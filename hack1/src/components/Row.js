@@ -13,9 +13,7 @@ const Row = ({ guess, rowIdx }) => {
                 guess ?        
                     guess.map(
                         (d, idx) => (
-                            d ? 
-                                <div key={`${rowIdx}-${idx}`} id={`${rowIdx}-${idx}`} className={`Row-wordbox ${d.color}`}>{d.char}</div> :
-                                <div key={`${rowIdx}-${idx}`} id={`${rowIdx}-${idx}`} className='Row-wordbox'></div>
+                            <div key={`${rowIdx}-${idx}`} id={`${rowIdx}-${idx}`} className={`Row-wordbox ${d.color}`}>{d.char}</div>
                         )
                     ) :
                     [...Array(5)].map((_, idx) => <div key={`${rowIdx}-${idx}`} id={`${rowIdx}-${idx}`} className='Row-wordbox'></div>)
