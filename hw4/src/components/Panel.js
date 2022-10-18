@@ -9,7 +9,7 @@ const Panel = ({error, setError, mineNum, mineNumOnChange, boardSize, boardSizeO
   const checkValidity = () => {
     const m = mineNumberInputRef.current.value;
     const n = boardSizeInputRef.current.value;
-    if (m > n * n)
+    if (m >= n * n)
       setError(true);
     else if (error)
       setError(false);
