@@ -66,7 +66,6 @@ const useWordle = (solution) => {
         // 5-2) usedChars update
         const newUsedChars = { ...usedChars };
         newGuess.map(d => {
-            if (d.color === 'grey') return undefined;
             if (d.color === 'green') newUsedChars[d.char] = 'green';
             if (d.color === 'yellow' && newUsedChars[d.char] !== 'green') newUsedChars[d.char] = 'yellow';
             return undefined;
