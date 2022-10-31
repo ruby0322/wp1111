@@ -3,9 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-      "server": "cd backend && npm server",
-      "start": "cd frontend && npm start",
-      "dev": "cd backend && npm start && cd ../frontend && npm start"
+      "server": "cd backend && yarn server",
+      "start": "cd frontend && yarn start"
     }
 }
   
