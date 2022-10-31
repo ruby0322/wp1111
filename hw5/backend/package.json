@@ -13,7 +13,6 @@
     },
     "scripts": {
         "start": "node index.js",
-        "dev": "nodemon index.js",
         "server": "nodemon server.js --ext js --exec babel-node"
     },
     "devDependencies": {

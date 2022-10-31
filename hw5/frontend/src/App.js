@@ -29,7 +29,11 @@ const App = () => {
           handleStartGame();
         }
       } catch (e) {
-        setStatus(e.response.data.status);
+        try {
+          setStatus(e.response.data.status);
+        } catch (ee) {
+          alert('Server Down. Reconnecting...');
+        }
       }
       inputRef.current.value = '';
     }
