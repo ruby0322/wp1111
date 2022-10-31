@@ -110,13 +110,15 @@ const App = () => {
               </li>      
               <br></br>
               <li>
-                  Password Hints: 'D' Stands For 'Digit'; 'N' Stands For 'Non-Digit'.
-                  <br></br>
-                  For Example, The Hint For 'abc123' Is 'DDDNNN'.
+                Password Hints: 'D' Stands For 'Digit'; 'N' Stands For 'Non-Digit'.
+                <br></br>
+                For Example, The Hint For 'abc123' Is 'DDDNNN'.
               </li>      
               <br></br>
               <li>
-                  Hack Result: Works The Same As The Famous Game, Wordle.
+                Hack Result: Works The Same As The Famous Game, Wordle. (G=Green; Y=Yellow)
+                <br></br>
+                For Example, The Result Of A Hacking Attempt 'abc123' On 'aaa112' Is 'G**GY*'
               </li>      
               <br></br>
               <li>
