@@ -22,7 +22,6 @@ const Flex = styled.div`
 `;
 
 const FilterTab = (props) => {
-  // const [queryType, setQueryType] = useState("name");
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
 
