@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import axios from '../api';
@@ -20,12 +18,6 @@ const Row = styled.div`
   width: 100%;
   padding: 1em;
   gap: 1rem;
-`;
-
-const ContentPaper = styled(Paper)`
-  height: 250px;
-  width: 100%;
-  overflow: auto;
 `;
 
 const QueryTab = () => {

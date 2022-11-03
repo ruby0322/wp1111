@@ -32,7 +32,7 @@ const Flex = styled.div`
 `;
 
 const AddTab = (props) => {
-  const { messages, addCardMessage, addErrorMessage, clearMessages } = useScoreCard();
+  const { messages, addCardMessage, addErrorMessage } = useScoreCard();
 
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('');

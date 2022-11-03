@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import axios from "../api";
 import styled from "styled-components";
 import BasicTable from "./BasicTable";
-import { DataGrid } from '@mui/x-data-grid';
 
 const Row = styled.div`
   display: flex;
@@ -22,25 +20,6 @@ const Flex = styled.div`
   justify-content: center;
   width: 100%;
 `;
-
-const ContentPaper = styled(Paper)`
-  height: 250px;
-  width: 100%;
-  overflow: auto;
-`;
-
-const columns = [
-  { field: 'name', headerName: 'Name', width: 250, filterable: false },
-  { field: 'subject', headerName: 'Subject', width: 250, filterable: false },
-  {
-    field: 'score',
-    headerName: 'Score',
-    type: 'number',
-    width: 180,
-    filterable: false
-  },
-];
-
 
 const FilterTab = (props) => {
   // const [queryType, setQueryType] = useState("name");
