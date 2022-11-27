@@ -73,6 +73,16 @@ export default {
         );
       });
     } else if (task === 'sign in') {
+      if (connections[payload.username]) {
+        sendStatus(
+          {
+            type: 'error',
+            msg: `You've already signed in on another device!`
+          },
+          webSocketConnection
+        );
+        return;
+      }
       webSocketConnection.username = payload.username;
       connections[webSocketConnection.username] = webSocketConnection;
       const existing = await User.findOne({ name: payload.username });
@@ -124,6 +134,8 @@ export default {
           );
         }
       }
+    } else if (task === 'log out') { 
+      connections[webSocketConnection.username] = undefined;
     } else if (task === 'add friend') {
       const foundUser = await User.findOne({ name: payload.username }, { name: 1, friends: 1 })
       if (foundUser) {

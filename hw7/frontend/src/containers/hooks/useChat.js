@@ -133,6 +133,7 @@ const ChatProvider = (props) => {
   const signOut = () => {
     setSignedIn(false);
     setMe({name: localStorage.getItem(LOCALSTORAGE_ME_KEY)});
+    sendData(['log out']);
   }
 
   const switchTo = (group, newAt) => {
