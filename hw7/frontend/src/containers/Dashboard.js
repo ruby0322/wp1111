@@ -144,7 +144,7 @@ const Dashboard = () => {
             onCreate={onNewGroupModalCreate}
             onCancel={() => setNewGroupModalOpen(false)}
             friends={
-              me.friends.map(friend => ({
+              me.friends.filter(f => f !== me.name).map(friend => ({
                 label: friend,
                 value: friend
               }))
