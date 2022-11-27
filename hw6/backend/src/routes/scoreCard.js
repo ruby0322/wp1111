@@ -23,22 +23,28 @@ router.post('/', async (req, res) => {
     console.log(`Receieved POST Request:\n${req}`);
     console.log(req.body);
 
-    const newScoreCard = new ScoreCard({
-        name: req.body.name,
-        subject: req.body.subject,
-        score: req.body.score
-    });
     const existing = await ScoreCard.findOne({ name: req.body.name, subject: req.body.subject });
-    console.log(existing);
-    if (existing)
+    
+    if (existing) {
         await ScoreCard.updateOne({ _id: existing._id }, { score: req.body.score });
-    else
+        res.status(200).json({
+            message: `Updating (${req.body.name}, ${req.body.subject}, ${req.body.score})`,
+            card: true
+        });
+    }
+    else {
+        const newScoreCard = new ScoreCard({
+            name: req.body.name,
+            subject: req.body.subject,
+            score: req.body.score
+        });
         await newScoreCard.save();
+        res.status(200).json({
+            message: `Adding (${req.body.name}, ${req.body.subject}, ${req.body.score})`,
+            card: true
+        });
+    }
 
-    res.status(200).json({
-        message: `Adding (${req.body.name}, ${req.body.subject}, ${req.body.score})`,
-        card: true
-    });
 });
 
 router.delete('/', async (req, res) => {

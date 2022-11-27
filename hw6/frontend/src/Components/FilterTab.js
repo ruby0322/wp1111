@@ -44,7 +44,7 @@ const FilterTab = (props) => {
     );
     setResults(res);
   };
-
+  
   const fetchCards = async () => {
     const { data: { results: res } } = await axios.get("/");
     setCards(res.map((r, i) => {

@@ -38,7 +38,8 @@ const ScoreCardProvider = (props) => {
   };
 
   const clearMessages = (message) => {
-    if (message) setMessages([makeMessage(message, REGULAR_MESSAGE_COLOR )]);
+    if (message) setMessages([makeMessage(message, REGULAR_MESSAGE_COLOR)]);
+    else setMessages([]);
   };
 
   return (

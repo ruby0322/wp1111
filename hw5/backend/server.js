@@ -9,7 +9,7 @@ app.use(cors());
 app.use('/api/guess', guessRoute);
 app.use('/api/age', hackRoute);
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 6969;
 app.listen(port, () => {
     console.log(`Server is up on ${port}.`);
 });

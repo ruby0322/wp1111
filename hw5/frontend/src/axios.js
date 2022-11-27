@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const ax = axios.create({
-    baseURL: 'http://localhost:4000/api/age',
+    baseURL: 'http://localhost:6969/api/age',
     timeout: 2000
 });
  
