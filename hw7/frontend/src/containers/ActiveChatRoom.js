@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { Input, Tabs } from 'antd';
+import { Input } from 'antd';
 import { useChat } from './hooks/useChat';
 import Message from '../components/Message';
 import styled from 'styled-components';
-import ChatModal from '../components/GroupModal';
 
 const PaperStyle = {
   display: 'flex',

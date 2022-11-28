@@ -6,13 +6,16 @@
 
 可以跟隨以下指示，節省您寶貴的時間。
 
+
 1. 前置作業
 
-    a. 在 .env.defaults 中填上您的 MONGO_URL
+    a. 如果你使用 Windows 電腦，在 index.js 頂端加上 `import 'antd/dist/antd.css';`
 
-    b. 新開兩個終端機，並分別下 `yarn start` 及 `yarn server` 指令。
+    b. 在 .env.defaults（或 .env） 中填上您的 MONGO_URL
 
-    c. 等待前後端就緒
+    c. 新開兩個終端機，並分別下 `yarn start` 及 `yarn server` 指令。
+
+    d. 等待前後端就緒
 
 2. 登入/註冊頁面
 
