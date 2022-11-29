@@ -50,5 +50,5 @@ exports.CreateComment = async (req, res) => {
   console.log('createComment, body:', body);
   const newComment = new Comment(body);
   await newComment.save();
-  res.stats(200);
+  res.status(200);
 };

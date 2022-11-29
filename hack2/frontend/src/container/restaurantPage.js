@@ -43,7 +43,8 @@ const RestaurantPage = () => {
 
   useEffect(() => {
     // TODO Part III-3-c: update the comment display immediately after submission
-    
+    getComments();
+    setLoading(true);
   }, [comments]);
 
   /* V TODO Part III-2-b: calculate the average rating of the restaurant */

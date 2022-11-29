@@ -27,12 +27,12 @@ const Comment = ({ restaurantId, comments, setComments, setLoad }) => {
   };
 
   const storeComment = async () => {
-    setComments([...comments, {
-      name,
-      content,
-      rating,
-      restaurantId
-    }]);
+    // setComments([...comments, {
+    //   name,
+    //   content,
+    //   rating,
+    //   restaurantId
+    // }]);
     await instance.post("createComment/", {
       // TODO Part III-3-b: store the comment to the DB
       name,
@@ -49,6 +49,7 @@ const Comment = ({ restaurantId, comments, setComments, setLoad }) => {
     setContent('');
     setRating(0);
     storeComment();
+    setLoad(false);
   };
 
   useEffect(() => {
