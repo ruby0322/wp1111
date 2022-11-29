@@ -35,7 +35,7 @@ exports.GetSearch = async (req, res) => {
     let restaurants = await Info.find();
 
     if (priceFilter && priceFilter.length > 0) {
-      restaurants = restaurants.filter(x => priceFilter.includes(x.price));
+      restaurants = restaurants.filter(x => priceFilter.includes(`${x.price}`));
     }
 
     if (mealFilter && mealFilter.length > 0) {
