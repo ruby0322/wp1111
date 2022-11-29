@@ -23,8 +23,8 @@ const SearchPage = () => {
     const { data } = await instance.get('getSearch', {
       params: {
         priceFilter: state.priceFilter,
-        mealFilter: state.priceFilter,
-        typeFilter: state.priceFilter,
+        mealFilter: state.mealFilter,
+        typeFilter: state.typeFilter,
         sortBy: state.sortBy
       }
     });

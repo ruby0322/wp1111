@@ -34,11 +34,11 @@ exports.GetSearch = async (req, res) => {
     sort[sortBy] = 1;
     let restaurants = await Info.find();
 
-    if (priceFilter) {
+    if (priceFilter && priceFilter.length > 0) {
       restaurants = restaurants.filter(x => priceFilter.includes(x.price));
     }
 
-    if (mealFilter) {
+    if (mealFilter && mealFilter.length > 0) {
       restaurants = restaurants.filter(x => {
         for (let i = 0; i < x.tag.length; ++i) {
           if (mealFilter.includes(x.tag[i]))
@@ -48,7 +48,7 @@ exports.GetSearch = async (req, res) => {
       });
     }
     
-    if (typeFilter) {
+    if (typeFilter && typeFilter.length > 0) {
       restaurants = restaurants.filter(x => {
         for (let i = 0; i < x.tag.length; ++i) {
           if (typeFilter.includes(x.tag[i]))
