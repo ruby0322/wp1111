@@ -57,14 +57,14 @@ const Information = ({ info, rating }) => {
                 </div>
               )
             ) :
-              ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'].filter(x => time[x]).map(
+              ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'].map(
               x => (
                 <div className='singleDay'>
                   <div className='day'>
                     {x}
                   </div>
                   <div className='time'>
-                    {time[x]}
+                    {time[x] ? time[x] : 'Closed'}
                   </div>
                 </div>
                 ) 
