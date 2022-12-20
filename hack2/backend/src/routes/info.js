@@ -29,9 +29,6 @@ exports.GetSearch = async (req, res) => {
   // V TODO Part II-2-a: revise the route so that the result is filtered with priceFilter, mealFilter and typeFilter
   // V TODO Part II-2-b: revise the route so that the result is sorted by sortBy
   try {
-    console.log(priceFilter, mealFilter, typeFilter, sortBy);
-    let sort = {};
-    sort[sortBy] = 1;
     let restaurants = await Info.find();
 
     if (priceFilter && priceFilter.length > 0) {

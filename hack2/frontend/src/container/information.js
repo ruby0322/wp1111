@@ -48,7 +48,7 @@ const Information = ({ info, rating }) => {
             ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'].map(
               x => (
                 <div className='singleDay'>
-                  <div className='day'>
+                  <div className='day'>x
                     {x}
                   </div>
                   <div className='time'>

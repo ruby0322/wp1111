@@ -38,7 +38,7 @@ const SearchPage = () => {
   const navigate = useNavigate();
   const ToRestaurant = (id) => {
     // TODO Part III-1: navigate the user to restaurant page with the corresponding id
-      navigate(`/restaurant/${id}`)
+    navigate(`/restaurant/${id}`);
   };
   const getPrice = (price) => {
     let priceText = "";
