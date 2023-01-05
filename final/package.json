@@ -1,0 +1,14 @@
+{
+  "name": "wp-final-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ruby0322/wp-final-project.git",
+  "author": "GaryHuang1122 <garyhuang@ntu.im>",
+  "license": "MIT",
+  "devDependencies": {},
+  "scripts": {
+    "start": "cd frontend && yarn start",
+    "install:prod": "cd frontend && yarn install --freeze-lockfile && cd ../backend && yarn install --freeze-lockfile",
+    "build": "cd frontend && yarn build"
+  }
+}
