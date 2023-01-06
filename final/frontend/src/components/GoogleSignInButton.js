@@ -2,25 +2,36 @@
 import { auth, provider } from '../firebase';
 import { signInWithPopup } from "firebase/auth";
 import { useAuth } from '../hooks/AuthContext';
-import { Button, Space } from 'antd';
+import { Button, Space } from 'antd-mobile';
 import { GoogleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
-
-const GoogleSignInButton = ({ onSignIn, style }) => {
-  const { signIn } = useAuth();
-
+const GoogleSignInButton = ({ style }) => {
+  const { signedIn, signOut, signIn } = useAuth();
   const handleSignIn = () => {
     signInWithPopup(auth, provider)
-      .then(({user}) => {
+      .then(({ user }) => {
+        if (signedIn) signOut();
         console.log('user', user);
         signIn(user);
-        onSignIn();
       });
   };
 
   return (
-    <Button onClick={handleSignIn} style={style} icon={<GoogleOutlined />}>
+    <Button
+      color='white'
+      fill='none'
+      onClick={handleSignIn}
+      style={{
+        ...style,
+        '--border-width': '2px',
+        // fontWeight: 'bold'
+      }}
+    >
+      <Space>
+        <GoogleOutlined />
         Sign In With Google
+      </Space>
     </Button>
   );
 };

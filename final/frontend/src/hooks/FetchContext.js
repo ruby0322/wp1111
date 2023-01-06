@@ -1,12 +1,12 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import { collection, getDocs, addDoc, updateDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { resolvePath } from "react-router-dom";
 
 const postsCollection = collection(db, 'posts');
 const usersCollection = collection(db, 'users');
-// const postsCollection = collection(db, 'posts');
-// const postsCollection = collection(db, 'posts');
+const messagesCollection = collection(db, 'messages');
+const chatRoomsCollection = collection(db, 'chatRooms');
 
 const FetchContext = createContext({
     users: null,
@@ -22,13 +22,17 @@ const FetchContext = createContext({
     getChatRoom: () => { },
     getMessage: () => { },
     updateUser: () => { },
+    followUser: () => { },
+    unfollowUser: () => { },
     createPost: () => { },
     followPost: () => { },
     unfollowPost: () => { },
     updatePost: () => { },
-  signupPost: () => { },
-  terminatePost: () => { },
-  finalizePost: () => {},
+    signupPost: () => { },
+    terminatePost: () => { },
+    finalizePost: () => { },
+  // deletePost: () => { },
+  signUp: () => {},
 });
 
 const FetchProvider = (props) => {
@@ -41,46 +45,41 @@ const FetchProvider = (props) => {
 
   useEffect(() => {
     // fetch with db object imported from '../firebase'
+    // const chatRoomsRes = {};
+    // const messagesRes = {};
+    // setChatRooms(chatRoomsRes);
+    // setMessages(messagesRes);
     let abortController;
-    const chatRoomsRes = {};
-    const messagesRes = {};
-    setChatRooms(chatRoomsRes);
-    setMessages(messagesRes);
     (async () => {
       abortController = new AbortController();
       const postsObj = {};
       let postIdArr = [];
       const postsRes = await getDocs(postsCollection);
       postsRes.forEach(doc => {
-        //console.log(doc.id, " => ", doc.data());
         postsObj[doc.id] = doc.data();
         
         postIdArr.push(doc.id);
       })
       setPostsIds(postIdArr);
-      //console.log("postIds:", postsIds)
-      //console.log("postObj",postsObj);
       setPosts(postsObj);
 
       const usersObj = {};
       const usersRes = await getDocs(usersCollection);
       usersRes.forEach(doc => {
-        //console.log(doc.id, " => ", doc.data());
         usersObj[doc.id] = doc.data();
       })
-      // console.log(usersObj);
       setUsers(usersObj);
       setFetched(true);
-      return () => abortController.abort();
     })();
-  }, [setPosts, setUsers, setFetched, setPostsIds, setMessages, setChatRooms]);
+    return () => abortController.abort();
+  }, []);
 
   const getPost = (postId) => {
     return posts[postId];
   }
 
-  const getPosts = (filter) => {
-    // implement filter and return the results
+  const getPosts = (userId) => {
+    // return recommended posts
     return postsIds;
   }
 
@@ -98,6 +97,11 @@ const FetchProvider = (props) => {
   }
 
   const getUser = (userId) => {
+    // const res = (await getDoc(doc(db, 'users', userId)));
+    // if (res.exists()) {
+    //   console.log(res.data());
+    // }
+    // return {};
     return users[userId];
   }
 
@@ -116,6 +120,31 @@ const FetchProvider = (props) => {
     setUsers(newUsers);
   }
 
+  const followUser = async (userId, hostId) => {
+    console.log("follow");
+    const newUser = users[userId];
+    newUser.followingUsers.push(hostId);
+    await updateUser(userId, newUser);
+    console.log("user", users[userId].followingUsers)
+
+    const newHost = users[hostId];
+    newHost.followers.push(userId);
+    await updateUser(hostId, newHost);
+    console.log("host", users[hostId].followers)
+  }
+
+  const unfollowUser = async (userId, hostId) => {
+    const newUser = users[userId];
+    newUser.followingUsers.splice(newUser.followingUsers.indexOf(hostId), 1);
+    await updateUser(userId, newUser);
+    console.log("user", users[userId].followingUsers)
+
+    const newHost = users[hostId];
+    newHost.followers.splice(newHost.followers.indexOf(userId), 1);
+    await updateUser(hostId, newHost);
+    console.log("host", users[hostId].followers)
+  };
+
   const updatePost = async (postId, newPost) => {
     await updateDoc(doc(db, 'posts', postId), newPost);
     const newPosts = { ...posts };
@@ -132,7 +161,7 @@ const FetchProvider = (props) => {
         console.log(newPostId);
       });
       let newPosts = { ...posts };
-      const newPost = await getDoc(doc(db, 'posts', newPostId)).data();
+      const newPost = (await getDoc(doc(db, 'posts', newPostId))).data();
       console.log('newPost', newPost);
       newPosts[newPostId] = newPost;
       const userId = post.host;
@@ -140,27 +169,28 @@ const FetchProvider = (props) => {
       newUser.publishedPosts.push(newPostId);
       await updateUser(userId, newUser);
       setPosts(newPosts);
-      setPostsIds([...postsIds, newPostId]);
+      setPostsIds([newPostId, ...postsIds]);
   }
 
   const followPost = async (userId, postId) => {
+    console.log('幹你娘');
     const newUser = users[userId];
     newUser.followingPosts.push(postId);
-    updateUser(userId, newUser);
+    await updateUser(userId, newUser);
 
     const newPost = posts[postId];
     newPost.followers.push(userId);
-    updatePost(postId, newPost);
+    await updatePost(postId, newPost);
   }
 
   const unfollowPost = async (userId, postId) => {
     const newUser = users[userId];
     newUser.followingPosts.splice(newUser.followingPosts.indexOf(postId), 1);
-    updateUser(userId, newUser);
+    await updateUser(userId, newUser);
 
     const newPost = posts[postId];
     newPost.followers.splice(newPost.followers.indexOf(userId), 1);
-    updatePost(postId, newPost);
+    await updatePost(postId, newPost);
   };
 
   const signupPost = async (userId, postId) => {
@@ -185,6 +215,38 @@ const FetchProvider = (props) => {
     const newPost = posts[postId];
     newPost.status = 3;
     updatePost(postId, newPost);
+  };
+
+  // const deletePost = async (postId) => {
+  //   const newUsers = { ...users };
+  //   posts[postId].followers.map((userId) => {
+  //     newUsers[userId].followingPosts.splice(newUsers[userId].followingPosts.indexOf(postId), 1);
+  //     updateUser(userId, newUsers[userId]);
+  //     return undefined;
+  //   });
+  //   posts[postId].participants.map((userId) => {
+  //     newUsers[userId].participatedPosts.splice(newUsers[userId].participatedPosts.indexOf(postId), 1);
+  //     updateUser(userId, newUsers[userId]);
+  //     return undefined;
+  //   });
+  //   newUsers[posts[postId].host] = newUsers[posts[postId].host].publishedPosts.filter(x => x !== postId);
+  //   await deleteDoc(doc(db, 'posts', postId));
+  //   updateUser(posts[postId].host, newUsers[posts[postId].host]);
+  //   setPostsIds(postsIds.filter(x => x !== postId));
+  //   // setUsers(newUsers);
+  // };
+
+  const sendMessage = async (userId, message) => {
+    await addDoc(messagesCollection, message);
+  };
+
+  const signUp = (userId) => {
+    const res = getDoc(doc(db, 'users', userId));
+    if (res.exists()) {
+      const newUsers = { ...users };
+      newUsers[userId] = res.data();
+      setUsers(newUsers);
+    }
   }
 
   return (
@@ -199,6 +261,8 @@ const FetchProvider = (props) => {
         getMessage,
         fetched,
         updateUser,
+        followUser,
+        unfollowUser,
         createPost,
         followPost,
         unfollowPost,
@@ -208,6 +272,8 @@ const FetchProvider = (props) => {
         posts,
         terminatePost,
         finalizePost,
+        // deletePost,
+        signUp,
       }}
       {...props}
     />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Popup, AutoCenter, Avatar, Tag, List, Steps, Divider, Button, Ellipsis, Modal, Space, Toast } from 'antd-mobile';
@@ -25,26 +25,28 @@ const { Step } = Steps;
 const PostInfo = ({ postId }) => {
   const [followersOpen, setFollowersOpen] = useState(false);
   const [participantsOpen, setParticipantsOpen] = useState(false);
+  const [hostOpen, setHostOpen] = useState(false);
   const { fetched, getPost, getUser, followPost, unfollowPost, signupPost, terminatePost, finalizePost } = useFetch();
-  const { getUserId } = useAuth();
+  const { userId } = useAuth();
   if (!fetched) return <></>;
   const post = getPost(postId);
-  const { title, body, due, startTime, endTime, maximum, participants, followers, tags, location, fee, host } = post;
-  const { displayName, school, department } = getUser(host);
-  const isFollowing = (getUser(getUserId()).followingPosts.indexOf(postId) !== -1);
-  const hasSignedup = (getUser(getUserId()).participatedPosts.indexOf(postId) !== -1);
-  
+  const { status, title, body, due, startTime, endTime, maximum, participants, followers, tags, location, fee, host } = post;
+  const { displayName, school, department, imgUrl } = getUser(host);
+  const isFollowing = (getUser(userId).followingPosts.indexOf(postId) !== -1);
+  const hasSignedup = (getUser(userId).participatedPosts.indexOf(postId) !== -1);
+
   const DateToString = (date) => {
     const dateObj = new Date(date.seconds*1000);
-    return `${dateObj.getFullYear()}/${dateObj.getMonth()+1}/${dateObj.getDay()} ${dateObj.getHours()}:00`;
+    return `${dateObj.getFullYear()}/${dateObj.getMonth()+1}/${dateObj.getDate()} ${dateObj.getHours()}:00`;
   }
 
   const handleClickSignup = () => {
-    //報名按鈕
+    // 報名按鈕
     if (!hasSignedup) {
-      signupPost(getUserId(), postId);
+      signupPost(userId, postId);
       Toast.show('成功報名揪卡！');
-    } else {
+    }
+    else {
       Toast.show('你已經報名這張揪卡了！');
     }
   }
@@ -52,31 +54,28 @@ const PostInfo = ({ postId }) => {
   const handleClickFollow = () => {
     //追蹤按鈕
     if (!isFollowing) {
-      followPost(getUserId(), postId);  
+      followPost(userId, postId);  
       Toast.show('成功追蹤揪卡！');
     } else {
-      unfollowPost(getUserId(), postId);  
+      unfollowPost(userId, postId);  
       Toast.show('成功退追揪卡！');
     }
   }
 
   const handleClickShare = () => {
-    //分享按鈕
     copy(`${window.location.host}/post/${postId}`);
     Toast.show('已複製連結')
   }
 
   const handleClickHost = () => {
-    Modal.show({content: <UserModal user={getUser(post.host)}/>, closeOnMaskClick: true,})
+    setHostOpen(true);
   }
 
   const handleClickParticipants = () => {
-    // Modal.show({ content: </>, closeOnMaskClick: true })
     setParticipantsOpen(true);
   }
   
   const handleClickFollowers = () => {
-    // Modal.show({ content: </>, closeOnMaskClick: true })
     setFollowersOpen(true);
   }
 
@@ -178,7 +177,7 @@ const PostInfo = ({ postId }) => {
             '--border-bottom': 'none',
           }}
         >
-        <List.Item prefix={<Avatar style={{ '--size': '2rem', marginRight: '1rem' }} src='' />} onClick={(e) => handleClickHost()}>
+          <List.Item prefix={<Avatar style={{ '--size': '2rem', marginRight: '1rem' }} src={imgUrl} />} onClick={(e) => handleClickHost()}>
           {displayName} @ {school} {department}
         </List.Item>
       </List>
@@ -190,12 +189,12 @@ const PostInfo = ({ postId }) => {
         <Step title='發布揪卡' />
         <Step title='等待同好齊聚' />
         <Step title='等待主揪指示' />
-        <Step title='齊聚同樂！' />
+        <Step title={status === 4 ? '主揪終止' : '齊聚同樂！'} status={status === 4 ? 'error' : ''} />
       </Steps>
         <Divider />
         <div style={{display: 'flex', gap: '1rem'}}>
             {
-              getUserId() === host ?
+              userId === host ?
               <>
                 <Button
                   block
@@ -204,6 +203,7 @@ const PostInfo = ({ postId }) => {
                     '--background-color': 'var(--adm-color-danger)',
                     '--text-color': 'white'
                   }}
+                  disabled={status >= 3}
                   >{<StopOutline />} 終止
                 </Button>
                 <Button
@@ -213,6 +213,7 @@ const PostInfo = ({ postId }) => {
                     '--background-color': 'var(--adm-color-primary)',
                     '--text-color': 'white'
                   }}
+                  disabled={status >= 3}
                 >
                   {<CheckCircleOutline />} 成團
                 </Button>
@@ -227,7 +228,7 @@ const PostInfo = ({ postId }) => {
                   '--background-color': 'var(--adm-color-primary)',
                   '--text-color': 'white'
                 } : {}}
-                disabled={hasSignedup || getUserId() === post.host || post.status >= 2 || new Date() > post.due}
+                disabled={hasSignedup || userId === post.host || post.status >= 2 || new Date() > new Date(post.due.seconds*1000)}
                 >
               {<UserAddOutline />} 報名
             </Button>
@@ -273,8 +274,23 @@ const PostInfo = ({ postId }) => {
           borderTopRightRadius: '12px',
           height: '60vh',
         }}
-      >
+        >
         <UserReel userIds={followers} />
+      </Popup>
+      <Popup
+        visible={hostOpen}
+        onMaskClick={() => {
+          setHostOpen(false);
+        }}
+        bodyStyle={{
+          width: '94%',
+          padding: '3%',
+          borderTopLeftRadius: '12px',
+          borderTopRightRadius: '12px',
+          height: '60vh',
+        }}
+      >
+        <UserModal host={getUser(post.host)} userId={userId} hostId={post.host} />
       </Popup>
     </>
   );

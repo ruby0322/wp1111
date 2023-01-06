@@ -8,7 +8,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "cd frontend && yarn start",
-    "install:prod": "cd frontend && yarn install --freeze-lockfile && cd ../backend && yarn install --freeze-lockfile",
-    "build": "cd frontend && yarn build"
+    "install:prod": "cd frontend && yarn install --freeze-lockfile",
+    "build": "cd frontend yarn && yarn build"
   }
 }

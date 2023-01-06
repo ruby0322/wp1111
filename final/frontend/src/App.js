@@ -12,14 +12,11 @@ import Footer from './components/Footer';
 
 import { gapi } from "gapi-script";
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from './hooks/AuthContext';
 
-import { useFetch } from './hooks/FetchContext';
 
 const App = () => {
-
-  const { users } = useFetch();
-
   useEffect(() => {
     const start = () => {
       gapi.client.init({
@@ -33,30 +30,27 @@ const App = () => {
   return (
     <>
     <div style={{height: '100vh'}}>
-      <div>
+      <div style={{backgroundColor: 'var(--adm-color-primary)'}}>
         <SafeArea position='top' />
       </div>
-      <Router>
+      <div style={{paddingBottom: '2rem'}}>
         <Header />
-        <div style={{paddingBottom: '2rem'}}>
-          <Routes>
-              <Route exact path='/' element={<Welcome />} />
-              <Route exact path='/home/' element={<Home />} />
-              <Route exact path='/search/' element={<Search />} />
-              <Route exact path='/invite/' element={<Invite />} />
-              <Route exact path='/chat/' element={<Chat />} />
-              {/* <Route path='/chat/:id' element={<Chat />} /> */}
-              {/* <Route path='/activity/:id' element={<Activity />} /> */}
-              <Route path='/user/:id' element={<User />} />
-          </Routes>
-        </div>
-        <Footer/>
-      </Router>
-      <div>
+        <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='/home/' element={<Home />} />
+            <Route exact path='/search/' element={<Search />} />
+            <Route exact path='/invite/' element={<Invite />} />
+            <Route exact path='/chat/' element={<Chat />} />
+            {/* <Route path='/chat/:id' element={<Chat />} /> */}
+            {/* <Route path='/activity/:id' element={<Activity />} /> */}
+            <Route path='/user/:id' element={<User />} />
+        </Routes>
+        <Footer />
+      </div>
+      <div style={{backgroundColor: 'white'}}>
         <SafeArea position='bottom' />
       </div>
     </div>
-    <Welcome />
     </>
   );
 }

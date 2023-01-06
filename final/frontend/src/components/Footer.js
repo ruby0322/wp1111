@@ -8,11 +8,14 @@ import {
   SmileFill,
   EditFill 
 } from 'antd-mobile-icons'
+import { useAuth } from "../hooks/AuthContext";
 
-const Footer = () => {
+const Footer = ({ show }) => {
+  const { signedIn } = useAuth()
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const userId = '26pQxHM5KZD4VKBHwRlj';
+  console.log(pathname)
+  const { userId } = useAuth();
   const tabs = [
     {
       key: '/home',
@@ -40,7 +43,7 @@ const Footer = () => {
       icon: <SmileFill />,
     },
   ]
-
+  if (!signedIn) return <></>;
   return (
     <div style={{
       position: "fixed",

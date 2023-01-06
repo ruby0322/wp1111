@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {
   MessageFill,
 } from 'antd-mobile-icons'
+import { useAuth } from '../hooks/AuthContext';
 
 const ChatBoxesWrapper = styled.div`
   width: 80%;
@@ -22,12 +23,12 @@ const fakeMessages = [
 {from: "貓",content: "?", to: "貓", timestamp:"2023/1/4 10:20:00"},
 {from: "貓",content: "暖你媽", to: "貓", timestamp:"2023/1/4 10:21:00"}]
 
-const ChatRoomPopup = ({ chatRoomName, setVisible }) => {
+const ChatRoomPopup = ({ chatRoomId, chatRoomName, setVisible }) => {
+  const { userId } = useAuth();
   const [message, setMessage] = useState('');
   const [messageSent, setMessageSent] = useState(false);
   const [messages, setMessages] = useState(fakeMessages);
   const messageFooterRef = useRef(null);
-  const me = {name: "Ruby"};
 
   const scrollToBottom = () => {
     messageFooterRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -39,7 +40,7 @@ const ChatRoomPopup = ({ chatRoomName, setVisible }) => {
   }, [messageSent]);
 
   const sendMessage = (msg) => {
-    setMessages([...messages, {from: me.name, content: msg, to: chatRoomName, timestamp: new Date()}])
+    setMessages([...messages, {from: userId, content: msg, to: chatRoomName, timestamp: new Date()}])
     console.log(messages)
   }
 
@@ -66,7 +67,7 @@ const ChatRoomPopup = ({ chatRoomName, setVisible }) => {
             </p> :
             messages.map(({ from, content, timestamp }, index) => (
               <Message
-                isMe={from === me.name}
+                isMe={from === userId}
                 color='blue'
                 key={`message-${index}`}
                 from={from}

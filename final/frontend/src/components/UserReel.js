@@ -1,7 +1,8 @@
-import React from "react";
-import { List, Empty, Avatar } from "antd-mobile";
+import React, { useState } from "react";
+import { List, Empty, Avatar, Popup } from "antd-mobile";
 import { useFetch } from '../hooks/FetchContext';
 import { useNavigate } from "react-router-dom";
+import UserReelRow from "./UserReelRow";
 
 const images = {
   男: "https://media.discordapp.net/attachments/1050841910006259772/1060265308205629460/male.png",
@@ -10,6 +11,7 @@ const images = {
 };
 
 const UserReel = ({ userIds, onClick }) => {
+  const [userOpen, setUserOpen] = useState(false);
   const navigate = useNavigate();
   const {getUser, getPosts} = useFetch();
   console.log(userIds)
@@ -24,22 +26,7 @@ const UserReel = ({ userIds, onClick }) => {
       {
         userIds.map((id) => {
           return (
-            <List.Item
-              key={`user-${id}`}
-              onClick={(e) => {
-                navigate(`/user/${id}`);
-                if (onClick)
-                  onClick();
-              }}
-              prefix={<Avatar src={getUser(id).imgUrl} />}
-              description={
-                getUser(id).school +
-                " " +
-                getUser(id).department
-              }
-            >
-              {getUser(id).displayName}
-            </List.Item>
+            <UserReelRow key={`user-reel-row-${id}`} userId={id} />
           );
         })
       }

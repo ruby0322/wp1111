@@ -22,8 +22,7 @@ import { useNavigate } from 'react-router-dom';
 const now = new Date();
 
 const Invite = () => {
-  const { getUserId } = useAuth();
-  const userId = getUserId();
+  const { userId } = useAuth();
   const [matchType, setMatchType] = useState("");
   const { createPost } = useFetch();
   const navigate = useNavigate();
@@ -128,7 +127,7 @@ const Invite = () => {
           name="startTime"
           label="活動開始"
           trigger="onConfirm"
-          rules={[{ required: true, message: "請輸入活動時間！" }]}
+          rules={[{ required: true, message: "請輸入活動開始時間！" }]}
           onClick={(e, DatePickerRef) => {
             DatePickerRef.current?.open();
           }}
@@ -143,7 +142,7 @@ const Invite = () => {
           name="endTime"
           label="活動結束"
           trigger="onConfirm"
-          rules={[{ required: true, message: "請輸入活動時間！" }]}
+          rules={[{ required: true, message: "請輸入活動結束時間！" }]}
           onClick={(e, DatePickerRef) => {
             DatePickerRef.current?.open();
           }}
@@ -158,7 +157,7 @@ const Invite = () => {
           name="due"
           label="報名截止"
           trigger="onConfirm"
-          rules={[{ required: true, message: "請輸入活動時間！" }]}
+          rules={[{ required: true, message: "請輸入報名截止時間！" }]}
           onClick={(e, DatePickerRef) => {
             DatePickerRef.current?.open();
           }}

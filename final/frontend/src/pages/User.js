@@ -17,12 +17,12 @@ import {
   Modal,
   Form
 } from "antd-mobile";
-// import { Form } from "antd";
 import { EditFill, InformationCircleOutline } from "antd-mobile-icons";
 import UserReel from "../components/UserReel";
 import { useAuth } from '../hooks/AuthContext';
 import { useFetch } from '../hooks/FetchContext';
 import PostReel from "../components/PostReel";
+import Welcome from "./Welcome";
 
 const NumberStyle = {
   fontSize: 20,
@@ -31,19 +31,18 @@ const NumberStyle = {
 };
 
 const User = () => {
-  const { profile } = useAuth();
-  const { getUserId } = useAuth();
+  const { userId, signedIn } = useAuth();
   const { fetched, updateUser, getUser } = useFetch();
   const { id } = useParams();
   const [isFollowingPopupOpen, setIsFollowingPopupOpen] = useState(false);
   const [isFollowersPopupOpen, setIsFollowersPopupOpen] = useState(false);
-
   const [form] = Form.useForm();
-  let userId = getUserId();
+  
+  if (!fetched) return <>loading...</>;
+  if (!signedIn) return <Welcome />
   let user = getUser(id);
-
-  if (!fetched) return <></>
-
+  console.log(user);
+  
   const showModal = () => {
     console.log('edit clicked');
     Modal.show({
@@ -51,14 +50,7 @@ const User = () => {
       preserve={false}
       form={form}
       layout="vertical"
-      initialValues={{
-        gender: user.gender,
-        favoriteFood: user.favoriteFood,
-        hobby: user.hobby,
-        signature: user.signature,
-        school: user.school,
-        department: user.department
-      }}
+      initialValues={user}
       footer={
         <AutoCenter>
           <Button onClick={handleOk}>
@@ -72,6 +64,13 @@ const User = () => {
         mode='card'
       >
       <Form.Header>修改個人資訊</Form.Header>
+      <Form.Item
+        name="displayName"
+        label="暱稱"
+        rules={[{ required: true, message: "請輸入你的暱稱！" }]}
+      >
+        <Input />
+      </Form.Item>
       <Form.Item
         name="school"
         label="學校"
@@ -139,10 +138,8 @@ const User = () => {
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      user.gender = values.gender[0];
-      user.favoriteFood = values.favoriteFood;
-      user.hobby = values.hobby;
-      user.signature = values.signature;
+      user = { ...user, ...values }
+      user.gender =  values.gender[0]
       console.log(user);
       updateUser(userId, user);
       form.resetFields();
@@ -175,7 +172,7 @@ const User = () => {
         padding: '3%',
         borderTopLeftRadius: '12px',
         borderTopRightRadius: '12px',
-        height: '60vh',
+        height: '80vh',
       }}
     >
       <UserReel onClick={onClick} userIds={user.followingUsers} />
@@ -258,7 +255,9 @@ const User = () => {
         </Grid>
 
         <Divider />
-        <AutoCenter>
+        <AutoCenter
+        style={{wordBreak: 'break-word'}}
+        >
           {user.signature}
         </AutoCenter>
 
@@ -282,7 +281,7 @@ const User = () => {
             <PostReel posts={getUser(id).publishedPosts} />
           </Tabs.Tab>
           <Tabs.Tab title='參與的揪卡' key='vegetables'>
-            歷史紀錄
+            <PostReel posts={getUser(id).participatedPosts} />
           </Tabs.Tab>
         </Tabs>
       </Card>

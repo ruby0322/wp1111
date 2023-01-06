@@ -5,12 +5,9 @@ import { List, Avatar, Tabs } from 'antd-mobile';
 import { useAuth } from "../hooks/AuthContext";
 import ChatRoomReel from "../components/ChatRoomReel";
 
-const { Tab } = Tabs;
-
 const Chat = () => {
 
-  // const { userId } = useAuth();
-  const { userId } = 1;
+  const { userId } = useAuth();
 
   const getPrivateChatRooms = (userId) => {
     return [1, 2];

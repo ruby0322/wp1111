@@ -4,24 +4,21 @@ import { Tabs } from 'antd-mobile'
 import PostReel from '../components/PostReel';
 import { useAuth } from "../hooks/AuthContext";
 import { useFetch } from "../hooks/FetchContext";
+import Welcome from "./Welcome";
 
 const Home = () => {
-  const { getUserId } = useAuth();
-  const userId = getUserId();
-
-  const {fetched, getUser, getPosts} = useFetch();
-  // const { userId } = useAuth();
-  // fake query
-  if (!fetched) return <></>;
+  const { userId, signedIn  } = useAuth();
+  const { fetched, getUser, getPosts } = useFetch();
+  console.log('signedIn', signedIn);
+  if (!fetched) return <>loading</>;
+  if (!signedIn) return <Welcome />;
   const getRecommendations = (userId) => {
-    //console.log(getPosts(1));
-    return getPosts(1);
-    //return [1,2];
+    return getPosts(userId);
   }
   const getFollowingPosts = (userId) => {
     return getUser(userId).followingPosts;
   }
-    return (
+  return (
     <Tabs>
       <Tabs.Tab title='推薦' key='recommendation'>
         <PostReel posts={getRecommendations(userId)} />

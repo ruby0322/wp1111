@@ -1,102 +1,79 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import { collection, getDocs, query, where, getDoc, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where, getDoc, doc, setDoc, getFirestore } from 'firebase/firestore';
 import { db } from '../firebase';
+// const db = getFirestore();
 
-const LOCALSTORAGE_PROFILE_KEY = 'save-oauth-profile';
-const saved = localStorage.getItem(LOCALSTORAGE_PROFILE_KEY);
-
-const usersCollection = collection(db, 'users');
+const LOCAL_STORAGE_KEY = 'save-auth-key';
 
 const AuthContext = createContext({
-  profile: null,
-  isSignedIn: () => { },
+  userId: null,
+  signedIn: false,
   signIn: () => { },
   signOut: () => { },
-  getProfile: () => { },
-  getUserId: () => {},
 });
 
 const AuthProvider = (props) => {
-  const [profile, setProfile] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (saved) {
-      signIn(saved);
+      setSignedIn(true);
+      setUserId(saved);
     }
-  }, [profile, setProfile]);
-
-  const isSignedIn = () => {
-    return profile !== null;
-  };
+  }, []);
 
   const signIn = async (profileObj) => {
-    console.log(profileObj);
-    setProfile(profileObj);
-    localStorage.setItem(LOCALSTORAGE_PROFILE_KEY, profileObj);
+    setSignedIn(true);
+    localStorage.setItem(LOCAL_STORAGE_KEY, profileObj.uid);
+    console.log(profileObj.uid);
+    setUserId(profileObj.uid);
 
-    console.log(db);
-    const res = await getDoc(doc(db, 'users', profileObj.uid));
-    console.log(res.data());
-
-    // if (!res.exists()) {
-    //   setDoc(doc(db, 'users', profileObj.uid), {
-    //     hobby: '',
-    //     gender: '其他',
-    //     imgUrl: profileObj.photoURL,
-    //     followingPosts: [],
-    //     followingUsers: [],
-    //     followers: [],
-    //     displayName: profileObj.displayName,
-    //     signature: '',
-    //     favoriteFood: '',
-    //     school: '',
-    //     department: '',
-    //     verified: false,
-    //     privateChatRooms: [],
-    //     groupChatRooms: [],
-    //     pendingPosts: [],
-    //     participatedPosts: [],
-    //     publishedPosts: [],
-    //   })
-    // }
-    // const res = db.collection('users')
-    // db.collection("cities").doc("LA").set({
-    //   name: "Los Angeles",
-    //   state: "CA",
-    //   country: "USA"
-    // })
-  
-    
-    // const res = await getDocs(query(usersCollection, where('id', '==', profileObj.uid)));
-
-
-    // console.log(res)
-    // db.collection('users').doc(profileObj.uid).set(id: profileObj.uid, {merge: true})
+    try {
+      const res = await getDoc(doc(db, 'users', profileObj.uid));
+      if (res.exists()) {
+        console.log('user already exists');
+      } else {
+        console.log('user doesn\'t exist');
+        await setDoc(doc(db, 'users', profileObj.uid), {
+          hobby: '',
+          gender: '其他',
+          imgUrl: profileObj.photoURL,
+          followingPosts: [],
+          followingUsers: [],
+          followers: [],
+          displayName: profileObj.displayName,
+          signature: '',
+          favoriteFood: '',
+          school: '',
+          department: '',
+          verified: false,
+          privateChatRooms: [],
+          groupChatRooms: [],
+          pendingPosts: [],
+          participatedPosts: [],
+          publishedPosts: [],
+        });
+      }
+    } catch {
+      console.log('error');
+    }
   };
   
-  const getUserId = () => {
-    // return profile.uid;
-    return '26pQxHM5KZD4VKBHwRlj';
-  }
-
   const signOut = () => {
-    setProfile(null);
-    localStorage.setItem(LOCALSTORAGE_PROFILE_KEY, null);
+    setSignedIn(false);
+    setUserId(null);
+    localStorage.setItem(LOCAL_STORAGE_KEY, null);
   };
-
-  const getProfile = () => {
-    return profile;
-  }
 
   return (
     <AuthContext.Provider
       value={{
-        profile,
-        isSignedIn,
+        signedIn,
+        userId,
         signIn,
         signOut,
-        getProfile,
-        getUserId,
       }}
       {...props}
     />

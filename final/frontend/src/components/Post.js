@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Card, Toast, Button, Popup } from 'antd-mobile'
-import { AntOutline, RightOutline } from 'antd-mobile-icons'
+import { Card, Toast, Button, Popup, Avatar, List, Space, Tag, Ellipsis } from 'antd-mobile'
+import { AntOutline, RightOutline, SearchOutline } from 'antd-mobile-icons'
 import { useFetch } from "../hooks/FetchContext";
 
 import PostInfo from "./PostInfo";
@@ -9,7 +9,8 @@ const Post = ({ postId }) => {
   const {getPost, getUser} = useFetch();
   const post = getPost(postId);
   //console.log("postId:",postId)
-  const { title, body, tags, location, due, startTime, endTime, maximum } = post;
+  const { title, body, location, due, startTime, endTime, maximum, host, tags } = post;
+  const { imgUrl, displayName, school, department } = getUser(host);
   const [showMore, setShowMore] = useState(false);
   const handleShowMore = () => {
     setShowMore(true);
@@ -19,19 +20,23 @@ const Post = ({ postId }) => {
     <>
       <Card
         title={
-          <div style={{ fontWeight: 'normal' }}>
-            <AntOutline style={{ marginRight: '4px' }} />
-            { title }
-          </div>
+          title
         }
-        extra={<RightOutline />}
+        extra={<SearchOutline />}
         onBodyClick={handleShowMore}
         onHeaderClick={handleShowMore}
-        style={{ borderRadius: '16px' }}
         >
-        <div>
-          { body }
-        </div>
+          <Ellipsis direction='end' content={body} rows={3} style={{wordBreak: 'break-word'}} />
+        <Space
+          block
+          style={{
+            width: '100%',
+            justifyContent: 'flex-end'
+          }} >
+              {
+                tags.map(tag => <Tag key={`${postId}-tag-${tag}`}>{tag}</Tag>)
+              }
+          </Space>
       </Card>
       <Popup
         visible={showMore}
